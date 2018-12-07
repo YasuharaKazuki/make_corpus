@@ -4,6 +4,7 @@
 import argparse
 import pandas as pd
 import numpy as np
+from pprint import pprint
 import re
 
 
@@ -14,8 +15,12 @@ def main():
 
     parser.add_argument('--csv_file', nargs='?',
                         help='Csv-file')
-    parser.add_argument('--bi_gram_file', type=str,
-                        help='Bi_gram-file')
+    parser.add_argument('--bigram_file', type=str,
+                        help='Bigram-file')
+    parser.add_argument('--output_file', type=str,
+                        help='Output^file')
+    parser.add_argument('--select_num', type=int,
+                        help='Select number of text')
     args = parser.parse_args()
 
     # read csv-file
@@ -36,7 +41,7 @@ def main():
     # make dictionary for bigram
     bigram_dict = {}
     bigram_index = 0
-    with open(args.bi_gram_file, 'r') as f:
+    with open(args.bigram_file, 'r') as f:
         for line in f:
             bigram_dict.update({line.rstrip(): bigram_index})
             bigram_index += 1
@@ -52,7 +57,7 @@ def main():
                                           read_text_value[1])) for bigram_key in bigram_dict])
         bigram_vecter[:, read_text_index] = vecter
 
-    while len(select_text_dict) < 1500:
+    while len(select_text_dict) < args.select_num:
         # sum bigram
         sum_vecter = np.sum(bigram_vecter, axis=1)
 
@@ -73,8 +78,9 @@ def main():
             bigram_vecter[:, text_index] = 0
             del text_dict[text_index]
 
-    for select in select_text_dict.values():
-        print(select[0] + ',' + select[2] + ',' + select[1])
+    with open(args.output_file, 'w') as f:
+        for select in select_text_dict.values():
+            pprint(select[0] + ',' + select[2] + ',' + select[1], stream=f)
 
 
 if __name__ == '__main__':
