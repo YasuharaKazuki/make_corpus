@@ -5,9 +5,6 @@ old_character='[ゝヱゑゐヰ]'
 all_symbol='s/[、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇ー―‐／＼～∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪]//g'
 aozora_dir=Aozorabunko
 preprocess_dir=Data_preprocess
-test_dir=Test
-save_dir=Save
-
 
 [ ! -e ${preprocess_dir} ] && mkdir ${preprocess_dir}
 
@@ -53,6 +50,5 @@ for file_path in `find ${aozora_dir} | grep txt`; do
             sed 's/　//g' > ${preprocess_dir}/${preprocess_file}
     fi
 done
-
 
 rm temp.txt
