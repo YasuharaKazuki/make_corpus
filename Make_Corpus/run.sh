@@ -15,6 +15,7 @@ n_jobs=4
 max_mora=30
 min_mora=20
 path_file=path_list.txt
+output_dir=mora_${min_mora}_${max_mora}
 
 # [ STAGE 0 ]
 if echo ${stage} | grep -q 0; then
@@ -38,11 +39,14 @@ if echo ${stage} | grep -q 1; then
     echo "########################################"
 
     [ -e ${path_file} ] && rm ${path_file}
-    find ${DATA_PREPROCESS} | grep txt | head -n1000 > ${path_file}
+    find ${DATA_PREPROCESS} | grep txt > ${path_file}
 
-    python test.py \
+    [ ! -e ${output_dir} ] && mkdir ${output_dir}
+
+    python extraction_text.py \
         --n_jobs ${n_jobs} \
         --path_file ${path_file} \
         --max_mora ${max_mora} \
-        --min_mora ${min_mora} > test.txt
+        --min_mora ${min_mora} \
+        --output_file ${output_dir}/extraction_text.txt
 fi
