@@ -3,8 +3,6 @@
 
 import argparse
 import MeCab
-from multiprocessing import Pool
-import multiprocessing as multi
 from itertools import chain
 import re
 from pykakasi import kakasi
@@ -80,8 +78,8 @@ def analysis_text(text_list):
     # analyze text using Pykakasi
     try:
         analysis_list = [conv.do(line) for line in analysis_list]
-    except Exception as e:
-        print(e)
+    except Exception:
+        print('pykakasi error')
 
     return analysis_list
 
@@ -102,32 +100,37 @@ def main():
                         help='max number of mora')
     parser.add_argument('--min_mora', type=int, default=20,
                         help='minimum number of mora')
+    parser.add_argument('--output_file', type=str,
+                        help='output file name')
     args = parser.parse_args()
 
     # get path_list
     path_list = read_path_list(args.path_file)
 
-    # p = Pool(args.n_jobs)
-    # text_list = p.map(read_text_file, path_list)
-    # analysis_list = p.map(analysis_text, text_list)
-    # p.close()
-
+    # get all text
     all_text_list = Parallel(n_jobs=args.n_jobs)([delayed(read_text_file)
                                                   (path) for path in path_list])
+    # analyze all text
     analysis_list = Parallel(n_jobs=args.n_jobs)([delayed(analysis_text)
                                                   (text_list) for text_list in all_text_list])
+    # flatten list
     all_text_list = list(chain.from_iterable(all_text_list))
     analysis_list = list(chain.from_iterable(analysis_list))
 
+    # make pair list
     pair_text_list = list(zip(all_text_list, analysis_list))
 
+    # extraction text
     text_list = Parallel(n_jobs=args.n_jobs)([delayed(extract_text)
                                               (pair_text, args.max_mora, args.min_mora)
                                               for pair_text in pair_text_list])
-
+    # remove None data
     text_list = list(filter(None.__ne__, text_list))
 
-    print(text_list)
+    with open(args.output_file, 'w') as f:
+        for index in range(len(text_list)):
+            f.write('ID' + str(index + 1).zfill(7) + ',')
+            f.write(text_list[index][0] + ',' + text_list[index][1] + '\n')
 
 
 if __name__ == '__main__':
