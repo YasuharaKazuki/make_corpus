@@ -85,6 +85,22 @@ def analysis_text(text_list):
 
 
 def extract_text(pair_text, max_mora, min_mora):
+    """EXTRACT TEXT
+
+    Parameter
+    ---------
+    pair_text: tuple of str
+        pair text
+    max_mora: int
+        max length of mora
+    min_mora: int
+        min length of mora
+
+    Return
+    ---------
+    pair_text: tuple of str
+        pair text
+    """
     if len(pair_text[1]) >= min_mora and len(pair_text[1]) <= max_mora:
         return pair_text
 
