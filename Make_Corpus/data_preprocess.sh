@@ -2,7 +2,7 @@
 
 last_character='s/[！？。「」]/h/g'
 old_character='[ゝヱゑゐヰ]'
-all_symbol='s/[、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇ー―‐／＼～∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪]//g'
+all_symbol='s/[!\.\(\)\?,├─┌┐┼、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆◯〇—‐／＼～〜∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪]//g'
 aozora_dir=Aozorabunko
 preprocess_dir=Data_preprocess
 
@@ -42,8 +42,8 @@ for file_path in `find ${aozora_dir} | grep txt`; do
             sed ${last_character} | \
             tr 'h' '\n' | \
             tr '\r' 'h' | \
-            sed 's/——/h/g' | \
             sed ${all_symbol} | \
+            sed 's/〜/h/g'| \
             sed 's/h//g' | \
             grep -v -E '[a-zA-Z0-9０-９ａ-ｚＡ-Ｚ]' | \
             grep -v '^\s*$'| \
