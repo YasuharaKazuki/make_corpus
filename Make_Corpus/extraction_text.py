@@ -144,9 +144,8 @@ def main():
     text_list = list(filter(None.__ne__, text_list))
 
     with open(args.output_file, 'w') as f:
-        for index in range(len(text_list)):
-            f.write('ID' + str(index + 1).zfill(7) + ',')
-            f.write(text_list[index][0] + ',' + text_list[index][1] + '\n')
+        for text in text_list:
+            f.write(text[0] + ',' + text[1] + '\n')
 
 
 if __name__ == '__main__':
