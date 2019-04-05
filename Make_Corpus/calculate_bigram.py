@@ -18,7 +18,7 @@ def main():
     parser.add_argument('--bigram_file', type=str,
                         help='Bigram-file')
     parser.add_argument('--output_file', type=str,
-                        help='Output^file')
+                        help='Output_file')
     parser.add_argument('--select_num', type=int,
                         help='Select number of text')
     args = parser.parse_args()
