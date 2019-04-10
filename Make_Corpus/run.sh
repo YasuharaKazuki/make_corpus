@@ -3,6 +3,7 @@
 # [ USER SETTING ]
 # 0: data preprocess
 # 1: text extraction
+# 2: select text
 
 stage=2
 
