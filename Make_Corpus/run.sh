@@ -3,6 +3,7 @@
 # [ USER SETTING ]
 # 0: data preprocess
 # 1: text extraction
+# 2: select text
 
 stage=2
 
@@ -102,3 +103,5 @@ if echo ${stage} | grep -q 2; then
 
     rm ${output_dir}/${SELECT_DIR}/tmp.txt
 fi
+
+ls

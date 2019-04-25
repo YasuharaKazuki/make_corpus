@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import pandas as pd
 import numpy as np
-from pprint import pprint
+import pandas as pd
 import re
 
 
@@ -80,7 +79,7 @@ def main():
 
     with open(args.output_file, 'w') as f:
         for select in select_text_dict.values():
-            pprint(select[0] + ',' + select[2] + ',' + select[1], stream=f)
+            f.write(select[0] + ',' + select[2] + ',' + select[1] + '\n')
 
 
 if __name__ == '__main__':
