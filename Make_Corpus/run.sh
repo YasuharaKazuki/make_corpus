@@ -103,3 +103,5 @@ if echo ${stage} | grep -q 2; then
 
     rm ${output_dir}/${SELECT_DIR}/tmp.txt
 fi
+
+ls
